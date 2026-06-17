@@ -7,9 +7,8 @@ import base64
 import matplotlib
 matplotlib.use('Agg') 
 import matplotlib.pyplot as plt
-from dotenv import load_dotenv
 
-load_dotenv()
+
 app = Flask(__name__, 
             template_folder=os.path.abspath(os.path.join(os.path.dirname(__file__), '../templates')),
             static_folder=os.path.abspath(os.path.join(os.path.dirname(__file__), '../static')))
@@ -95,10 +94,10 @@ def home():
                     session['average_revenue'] = average_revenue
                     session['max_revenue'] = max_revenue
                     session['status_list'] = status_list
-                    session['repeated_orders'] = repeated_orders
+                    session['repeated_orders'] = repeated_orders.tolist()
                     session['order_id'] = order_id
                     session['month_list'] = month_list
-                    session['quantity_list'] = quantity_list
+                    session['quantity_list'] = quantity_list.tolist()
                     session['customer_list'] = customer_list
                     session['clean_phone'] = clean_phone
                     session['address_list'] = address_list
