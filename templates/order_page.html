@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Intelligence</title>
+    <link rel="stylesheet" href="/static/revenue_page.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .filter-group { display: flex; gap: 15px; margin-bottom: 25px; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .filter-input { padding: 10px; border: 1px solid #dfe6e9; border-radius: 6px; flex: 1; }
+        .badge { padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
+        .badge-repeat { background: #e17055; color: white; }
+        .badge-new { background: #00b894; color: white; }
+    </style>
+</head>
+<body>
+
+<div class="detail-container">
+    <nav class="top-nav">
+        <a href="/" class="back-btn"><i class="fas fa-chevron-left"></i> Dashboard</a>
+    </nav>
+
+    <header class="revenue-header">
+        <div class="title-block">
+            <h1>Order Analysis</h1>
+            <p>Filtering {{ total_count }} total transactions</p>
+        </div>
+    </header>
+
+    <div class="filter-group">
+        <input type="text" id="orderSearch" class="filter-input" placeholder="Search by Order ID or Customer..." onkeyup="filterOrders()">
+        <select id="customerFilter" class="filter-input" onchange="filterOrders()">
+            <option value="all">All Customers</option>
+            <option value="repeat">Repeat Customers</option>
+            <option value="new">New Customers</option>
+        </select>
+    </div>
+
+    <div class="table-card">
+    <table id="orderTable">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Customer Details</th>
+                <th>Contact Info</th>
+                <th>Shipping Address</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr class="order-row" data-type="{{ order.customer_type }}">
+                <td><strong>#{{order.id}}</strong></td>
+                
+                <td>{{ order.date }}</td>
+                
+                <td>{{this_cust}}</td>
+                
+                <td>
+                    <div class="small-info">
+                        <i class="fas fa-envelope"></i> {{this_email}}<br>
+                        <i class="fas fa-phone"></i> {{this_phone}}
+                    </div>
+                </td>
+                
+                <td class="address-col">{{this_address}}</td>
+                
+                <td class="bold-text">${{ order.amount }}</td>
+                
+                <td>
+                    <span class="status-badge {{ order.status | lower }}">
+                        <span class="status-dot"></span> {{ order.status }}
+                    </span>
+                </td>
+                
+                <td>
+                    {% if order.customer_type == 'repeat' %}
+                        <span class="badge badge-repeat">Repeat</span>
+                    {% else %}
+                        <span class="badge badge-new">New</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+<script>
+function filterOrders() {
+    const searchText = document.getElementById('orderSearch').value.toLowerCase();
+    const customerType = document.getElementById('customerFilter').value;
+    const rows = document.querySelectorAll('.order-row');
+
+    rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        const type = row.getAttribute('data-type');
+        
+        const matchesSearch = text.includes(searchText);
+        const matchesType = (customerType === 'all' || type === customerType);
+
+        if (matchesSearch && matchesType) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    });
+}
+</script>
+</body>
+</html>

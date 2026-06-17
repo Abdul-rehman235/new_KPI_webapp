@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Average Revenue Analysis</title>
+    <link rel="stylesheet" href="/static/average_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<div class="analysis-container">
+    <nav class="top-nav">
+        <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Dashboard</a>
+        <span class="page-title">Financial Performance</span>
+    </nav>
+
+    <div class="kpi-grid">
+        <div class="kpi-card highlight">
+            <div class="kpi-icon"><i class="fas fa-chart-line"></i></div>
+            <div class="kpi-info">
+                <h3>Average Transaction Value</h3>
+                <p class="main-value">${{ average_revenue }}</p>
+                <span class="comparison">Based on {{ total_order }} orders</span>
+            </div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-info">
+                <h3>Total Gross Revenue</h3>
+                <p class="sub-value">${{ total_revenue }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="visual-section">
+        <div class="chart-container">
+            <h3>Revenue Distribution</h3>
+            <img src="data:image/png;base64,{{plot_url}}" alt="Revenue Plot" class="plot-img">
+        </div>
+    </div>
+
+    <div class="table-section">
+        <h3>Top Revenue Entries</h3>
+        <table class="simple-table">
+            <thead>
+                <tr>
+                    <th>Order #</th>
+                    <th>Customer</th>
+                    <th>Revenue Amount</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders[:10] %}
+                <tr>
+                    <td>#{{ order.id }}</td>
+                    <td>{{ order.customer }}</td>
+                    <td class="amount">${{ order.amount }}</td>
+                    <td><span class="status-pill">{{ order.status }}</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

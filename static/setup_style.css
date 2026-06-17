@@ -1,0 +1,155 @@
+:root {
+    --primary: #4834d4;
+    --bg: #f6f9fc;
+    --text: #2d3436;
+    --border: #dcdde1;
+}
+
+.setup-body {
+    background-color: var(--bg);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.setup-container {
+    width: 100%;
+    max-width: 900px;
+}
+
+.setup-card {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.setup-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.setup-header h1 {
+    color: var(--primary);
+    margin: 0;
+}
+
+/* Grid System */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+@media (max-width: 768px) {
+    .form-grid { grid-template-columns: 1fr; }
+}
+
+.form-section h3 {
+    font-size: 1.1rem;
+    color: var(--text);
+    border-bottom: 2px solid var(--bg);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 18px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #636e72;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(72, 52, 212, 0.1);
+}
+
+.form-actions {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Container for horizontal scrolling on mobile */
+.table-card {
+    overflow-x: auto;
+    background: white;
+    border-radius: 12px;
+}
+
+#orderTable {
+    width: 100%;
+    min-width: 1100px; /* Forces enough width to fit all 8 columns */
+    border-collapse: collapse;
+}
+
+#orderTable th, #orderTable td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.small-info {
+    font-size: 0.8rem;
+    color: #636e72;
+    line-height: 1.4;
+}
+
+.address-col {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adds ... if address is too long */
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.btn-save {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 16px 60px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-save:hover {
+    background: #3c2bb3;
+    transform: scale(1.02);
+}
+
+.btn-back {
+    text-decoration: none;
+    color: #636e72;
+    font-size: 0.9rem;
+}

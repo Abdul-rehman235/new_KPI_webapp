@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Intelligence Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <header class="dashboard-header">
+    <div class="header-text">
+        <h1>Executive Overview</h1>
+        <p>Real-time performance indicators</p>
+    </div>
+    
+    <form action="{{ url_for('setup_columns') }}" method="get">
+    <button type="submit" class="custom-col-btn">
+        <i class="fas fa-plus-circle"></i> Custom Column
+    </button>
+</form>
+
+
+</header>
+
+    <!-- Upload Section -->
+    <div class="upload-header-container" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+    <form method="POST" enctype="multipart/form-data" style="margin: 0;">
+        <div class="upload-section" style="margin: 0;">
+            <label for="csv-upload" class="custom-file-upload">
+                <i class="fas fa-cloud-upload-alt"></i> Upload KPI Data (CSV / Excel)
+            </label>
+            <input type="file" id="csv-upload" name="file" accept=".csv,.xls,.xlsx" onchange="this.form.submit()" style="display:none;" />
+            <span id="file-name" style="margin-left: 10px; font-size: 0.9rem; color: #636e72;">
+                {{ changetext or "No file uploaded" }}
+            </span>
+        </div>
+    </form>
+
+    <button type="button" class="reset-btn" onclick="confirmReset()">
+        <i class="fas fa-sync-alt"></i> Reset App
+    </button>
+</div>
+
+<script>
+function confirmReset() {
+    if (confirm("Are you sure you want to reset everything? This will clear all uploaded data and column settings.")) {
+        window.location.href = "/reset";
+    }
+}
+</script>
+
+    <!-- KPI Cards -->
+    <div class="kpi-grid">
+
+        <!-- TOTAL REVENUE -->
+        <div class="kpi-card">
+            <div class="card-header">
+                <i class="fas fa-dollar-sign icon-revenue"></i>
+            </div>
+            <div class="card-body">
+                <h3>Total Revenue</h3>
+                <p class="metric">${{total_revenue}}</p>
+            </div>
+            <div class="card-footer">
+                <span>Calculated from file</span>
+                <div class="card-footer">
+    <button type="button" class="kpi-btn" onclick="window.location.href='/revenue-detail'">
+    <span>See Details</span>
+    <i class="fas fa-arrow-right"></i>
+</button>
+</div>
+            </div>
+        </div>
+
+        <!-- TOTAL ORDERS -->
+        <div class="kpi-card">
+            <div class="card-header">
+                <i class="fas fa-chart-line icon-conversion"></i>
+            </div>
+            <div class="card-body">
+                <h3>Total Orders</h3>
+                <p class="metric">{{total_order}}</p>
+            </div>
+            <div class="card-footer">
+                <span>Rows count</span>
+<div class="card-footer">
+    <button type="button" 
+            class="kpi-btn {% if not revenue_list %}disabled{% endif %}" 
+            onclick="window.location.href='/order-detail'">
+        <span>See Details</span>
+        <i class="fas fa-arrow-right"></i>
+    </button>
+</div>
+                
+            </div>
+        </div>
+
+        <!-- AVERAGE REVENUE -->
+        <div class="kpi-card">
+            <div class="card-header">
+                <i class="fas fa-user-minus icon-churn"></i>
+            </div>
+            <div class="card-body">
+                <h3>Average Revenue</h3>
+                <p class="metric">${{average_revenue}}</p>
+            </div>
+            <div class="card-footer">
+                <span>Per order</span>
+                <div class="card-footer">
+                    <button type="button" class="kpi-btn" onclick="window.location.href='/average-revenue'">
+    <span>See Details</span>
+    <i class="fas fa-arrow-right"></i>
+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAX REVENUE -->
+        <div class="kpi-card">
+            <div class="card-header">
+                <i class="fas fa-smile icon-csat"></i>
+            </div>
+            <div class="card-body">
+                <h3>Max Revenue</h3>
+                <p class="metric">${{max_revenue}}</p>
+            </div>
+            <div class="card-footer">
+                <span>Highest sale</span>
+                <div class="card-footer">
+                    <button type="button" class="kpi-btn" onclick="window.location.href='/max-revenue'">
+    <span>See Details</span>
+    <i class="fas fa-arrow-right"></i>
+</button>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Revenue Detail Section -->
+    <div class="details-section">
+        <h2>Revenue Details</h2>
+
+        {% if revenue_list %}
+            <ul class="revenue-list">
+                {% for r in revenue_list %}
+                    <li>${{ r }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <!-- <p class="empty-text">No revenue data available</p> -->
+            <li>{{revenue_list}}</li>
+        {% endif %}
+    </div>
+
+</div>
+
+</body>
+</html>

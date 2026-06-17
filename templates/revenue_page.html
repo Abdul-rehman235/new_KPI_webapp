@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revenue Analytics</title>
+    <link rel="stylesheet" href="/static/revenue_page.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<div class="detail-container">
+    <nav class="top-nav">
+        <a href="/" class="back-btn"><i class="fas fa-chevron-left"></i> Dashboard</a>
+    </nav>
+
+    <header class="revenue-header">
+        <div class="title-block">
+            <h1>Revenue Intelligence</h1>
+            <p>Growth analysis and transaction history</p>
+        </div>
+        <div class="stat-card">
+            <span class="label">Total Revenue</span>
+            <span class="value">${{ total_revenue }}</span>
+        </div>
+    </header>
+
+    <div class="chart-section">
+        <h3>Revenue Growth Trend</h3>
+        <div class="chart-container" style="text-align: center; padding: 20px;">
+    {% if plot_url %}
+        <img src="data:image/png;base64,{{ plot_url }}" 
+             alt="Revenue Growth Chart" 
+             style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+    {% else %}
+        <div class="empty-text" style="padding: 50px; color: #b2bec3;">
+            <i class="fas fa-chart-area fa-3x"></i>
+            <p>No trend data available. Please upload a file on the home page.</p>
+        </div>
+    {% endif %}
+    <div class="card-footer"></div>
+</div>
+    </div>
+
+<div class="list-section">
+        <h3>Transaction Details</h3>
+        <div class="table-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Entry</th>
+                        <th>Amount</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="transaction-body">
+                    {% if revenue_list %}
+                        {% for r in revenue_list %}
+                        <tr class="transaction-row {% if loop.index > 10 %}hidden-row{% endif %}">
+                            <td>Transaction #{{ loop.index }}</td>
+                            <td class="bold-text">${{ r }}</td>
+                            <td>Sale</td>
+                            <td><span class="status-dot"></span> Active</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="empty">No data available.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if revenue_list|length > 10 %}
+        <div style="text-align: center; margin-top: 25px;">
+            <button id="see-all-btn" class="kpi-btn" onclick="toggleRows()" style="background: #0984e3; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                <span>See All Transactions</span>
+                <i class="fas fa-chevron-down" style="margin-left: 8px;"></i>
+            </button>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+/**
+ * Toggles the visibility of table rows beyond the first 10.
+ * Uses getComputedStyle to ensure it works on the very first click.
+ */
+function toggleRows() {
+    const hiddenRows = document.querySelectorAll('.hidden-row');
+    const btn = document.getElementById('see-all-btn');
+    const btnText = btn.querySelector('span');
+    const btnIcon = btn.querySelector('i');
+
+    if (hiddenRows.length === 0) return;
+
+    // Check actual visibility state from the first hidden row
+    const isCurrentlyCollapsed = window.getComputedStyle(hiddenRows[0]).display === "none";
+
+    hiddenRows.forEach(row => {
+        row.style.display = isCurrentlyCollapsed ? "table-row" : "none";
+    });
+
+    // Update UI elements
+    if (isCurrentlyCollapsed) {
+        btnText.innerText = "Show Less";
+        btnIcon.className = "fas fa-chevron-up";
+    } else {
+        btnText.innerText = "See All Transactions";
+        btnIcon.className = "fas fa-chevron-down";
+    }
+}
+</script>
+    </div>
+</div>
+
+</body>
+</html>

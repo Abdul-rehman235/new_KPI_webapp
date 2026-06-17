@@ -1,0 +1,80 @@
+:root {
+    --gold: #0984e3;
+    --dark: #2c3e50;
+    --accent: #e67e22;
+    --bg: #f4f7f6;
+}
+
+body {
+    background: var(--bg);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    color: var(--dark);
+}
+
+.max-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.max-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.trophy-icon {
+    font-size: 3rem;
+    color: var(--gold);
+    margin-bottom: 10px;
+}
+
+.main-card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    text-align: center;
+    border-top: 6px solid var(--gold);
+}
+
+.max-value {
+    font-size: 4rem;
+    margin: 10px 0;
+    color: var(--dark);
+}
+
+.details-row {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+    color: #7f8c8d;
+}
+
+.chart-section {
+    margin-top: 40px;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.chart-section img { width: 100%; border-radius: 10px; }
+
+.leaderboard {
+    list-style: none;
+    padding: 0;
+}
+
+.leader-item {
+    background: white;
+    margin-bottom: 10px;
+    padding: 15px 25px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.rank { font-weight: bold; color: var(--gold); font-size: 1.2rem; }
+.amount { font-weight: bold; color: #27ae60; }

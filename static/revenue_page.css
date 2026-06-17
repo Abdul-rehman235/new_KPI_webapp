@@ -1,0 +1,83 @@
+:root {
+    --primary: #0984e3;      /* Professional Blue */
+    --accent: #00b894;       /* Success Green */
+    --bg-light: #f8f9fa;     /* Soft Background */
+    --white: #ffffff;
+    --text-dark: #2d3436;
+    --text-muted: #636e72;
+    --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+body {
+    background-color: var(--bg-light);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text-dark);
+    margin: 0;
+    line-height: 1.6;
+}
+
+.detail-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Header & Back Button */
+.top-nav { margin-bottom: 20px; }
+.back-btn {
+    text-decoration: none;
+    color: var(--primary);
+    font-weight: 600;
+    transition: 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.back-btn:hover { transform: translateX(-5px); opacity: 0.8; }
+
+.revenue-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 30px;
+}
+
+.title-block h1 { margin: 0; font-size: 2rem; letter-spacing: -0.5px; }
+.title-block p { margin: 5px 0 0; color: var(--text-muted); }
+
+/* KPI Stat Card */
+.stat-card {
+    background: var(--white);
+    padding: 20px 35px;
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    text-align: right;
+    border-bottom: 4px solid var(--primary);
+}
+.stat-card .label { font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; }
+.stat-card .value { display: block; font-size: 2.2rem; font-weight: 800; color: var(--text-dark); }
+
+/* Chart Styling */
+.chart-section {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 40px;
+}
+.chart-section h3 { margin-top: 0; font-size: 1.2rem; color: var(--text-dark); border-left: 4px solid var(--accent); padding-left: 15px; }
+
+/* Table Styling */
+.table-card {
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+}
+table { width: 100%; border-collapse: collapse; }
+th { background: #fdfdfd; padding: 20px; text-align: left; font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; border-bottom: 1px solid #eee; }
+td { padding: 18px 20px; border-bottom: 1px solid #f9f9f9; font-size: 0.95rem; }
+tr:hover { background-color: #fcfcfc; }
+
+.bold-text { font-weight: 700; color: var(--accent); }
+.status-dot { height: 10px; width: 10px; background: var(--accent); border-radius: 50%; display: inline-block; margin-right: 8px; }
