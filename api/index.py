@@ -1,4 +1,10 @@
 from flask import Flask, render_template, request, session, redirect
+
+
+app = Flask(__name__, 
+            template_folder=os.path.abspath(os.path.join(os.path.dirname(__file__), '../templates')),
+            static_folder=os.path.abspath(os.path.join(os.path.dirname(__file__), '../static')))
+
 from flask_session import Session  # Required for large file data
 import pandas as pd
 import io
@@ -6,8 +12,6 @@ import base64
 import matplotlib
 matplotlib.use('Agg') 
 import matplotlib.pyplot as plt
-
-app = Flask(__name__)
 
 app.secret_key = 'your_secret_key_here' 
 
