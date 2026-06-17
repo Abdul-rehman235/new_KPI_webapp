@@ -2,3 +2,5 @@ Flask
 pandas
 numpy
 matplotlib
+openpyxl
+collections
